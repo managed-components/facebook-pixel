@@ -1,8 +1,8 @@
-import { ComponentSettings, MCEvent } from '../../lib/manager'
+import { ComponentSettings, MCEvent } from '@managed-components/types'
 import { getRequestBody } from './track'
 
 /**
- * Maping the standard MC ecommerce API to FB ecommerce event names
+ * Mapping the standard MC ecommerce API to FB ecommerce event names
  */
 const EVENT_NAMES_MAP: { [k: string]: string } = {
   'Order Completed': 'Purchase',
@@ -33,9 +33,8 @@ const getContentIds = (payload: any) => {
   ]
 }
 
-const getValue = (payload: any) => {
-  return payload.value || payload.price || payload.total || payload.revenue
-}
+const getValue = (payload: any) =>
+  payload.value || payload.price || payload.total || payload.revenue
 
 const mapEcommerceData = (event: MCEvent) => {
   const { payload, client } = event
@@ -43,7 +42,6 @@ const mapEcommerceData = (event: MCEvent) => {
   const custom_data: { [k: string]: any } = {}
 
   custom_data.currency = payload.currency
-
   custom_data.content_type = 'product'
   custom_data.content_ids = getContentIds(payload)
   custom_data.content_name = getContentName(payload)
@@ -73,8 +71,7 @@ export const getEcommerceRequestBody = async (
   request.event_name = EVENT_NAMES_MAP[event.name || ''] || event.name
   delete request.custom_data.eventName
 
-  const ecommerceData = mapEcommerceData(event)
-  request.custom_data = { ...request.custom_data, ...ecommerceData }
+  request.custom_data = { ...request.custom_data, ...mapEcommerceData(event) }
 
   return request
 }

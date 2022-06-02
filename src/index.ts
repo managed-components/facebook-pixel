@@ -1,4 +1,4 @@
-import { ComponentSettings, Manager, MCEvent } from '../../lib/manager'
+import { ComponentSettings, Manager } from '@managed-components/types'
 import { getEcommerceRequestBody } from './ecommerce'
 import { getRequestBody } from './track'
 
@@ -24,22 +24,18 @@ const sendEvent = async (payload: any, settings: ComponentSettings) => {
 }
 
 export default async function (manager: Manager, settings: ComponentSettings) {
-  // ====== Subscribe to User-Configured Events ======
-  manager.addEventListener('event', async (event: MCEvent) => {
+  manager.addEventListener('event', async event => {
     const request = await getRequestBody(event, settings)
     sendEvent(request, settings)
   })
 
-  // ====== Subscribe to Pageview Events ======
-  manager.addEventListener('pageview', async (event: MCEvent) => {
+  manager.addEventListener('pageview', async event => {
     const request = await getRequestBody(event, settings)
     sendEvent(request, settings)
   })
 
-  // ====== Subscribe to Ecommerce Events ======
-  manager.addEventListener('ecommerce', async (event: MCEvent) => {
+  manager.addEventListener('ecommerce', async event => {
     const request = await getEcommerceRequestBody(event, settings)
-
     sendEvent(request, settings)
   })
 }
