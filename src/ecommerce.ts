@@ -66,12 +66,14 @@ export const getEcommerceRequestBody = async (
   event: MCEvent,
   settings: ComponentSettings
 ) => {
+  const ecommerceData = mapEcommerceData(event)
+  delete event.payload.products
   const request = await getRequestBody(event, settings)
 
   request.event_name = EVENT_NAMES_MAP[event.name || ''] || event.name
   delete request.custom_data.eventName
 
-  request.custom_data = { ...request.custom_data, ...mapEcommerceData(event) }
+  request.custom_data = { ...request.custom_data, ...ecommerceData }
 
   return request
 }
