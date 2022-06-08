@@ -4,7 +4,7 @@ import { getRequestBody } from './track'
 
 const sendEvent = async (payload: any, settings: ComponentSettings) => {
   const property = settings.property
-  const graphEndpoint = `https://graph.facebook.com/v13.0/${property}/events`
+  const graphEndpoint = `https://graph.facebook.com/v14.0/${property}/events`
 
   const requestBody = {
     data: [payload],
