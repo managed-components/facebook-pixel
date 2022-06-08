@@ -37,7 +37,7 @@ const getValue = (payload: any) =>
   payload.value || payload.price || payload.total || payload.revenue
 
 const mapEcommerceData = (event: MCEvent) => {
-  const { payload, client } = event
+  const { payload } = event
 
   const custom_data: { [k: string]: any } = {}
 
@@ -56,7 +56,7 @@ const mapEcommerceData = (event: MCEvent) => {
     custom_data.num_items = (payload.products?.length || 1).toString()
   }
   if (event.name === 'Products Searched') {
-    custom_data.search_string = client.url.search
+    custom_data.search_string = payload.query
   }
 
   return custom_data
