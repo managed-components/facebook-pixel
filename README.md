@@ -18,7 +18,25 @@ Find out more about Managed Components [here](https://blog.cloudflare.com/zaraz-
 2. Install dependencies with `npm i`
 3. Run unit test watcher with `npm run test:dev`
 
+## ⚙️ Tool Settings
+
+> Settings are used to configure the tool in a Component Manager config file
+
+### Pixel ID `string` _required_
+
+`property` is a long number that identifies your Facebook Ads account. You can obtain it from the [Events Manager](https://www.facebook.com/events_manager2/) underneath your site name.
+
+### Conversion API Access Token _required_
+
+`accessToken` is a string used to authenticate when sending server side events in your name. You can obtain it [following the information here](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started#access-token).
+
+### Test Event Code
+
+`testKey` is used to test your app or web browser events using test events tool [Learn more](https://business.facebook.com/business/help/2040882565969969?id=1205376682832142)
+
 ## 🧱 Fields Description
+
+> Fields are properties that can/must be sent with certain events
 
 ### Facebook Event Name `string` _required_
 
