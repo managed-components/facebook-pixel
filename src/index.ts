@@ -25,12 +25,12 @@ const sendEvent = async (payload: any, settings: ComponentSettings) => {
 
 export default async function (manager: Manager, settings: ComponentSettings) {
   manager.addEventListener('event', async event => {
-    const request = await getRequestBody(event, settings)
+    const request = await getRequestBody('event', event, settings)
     sendEvent(request, settings)
   })
 
   manager.addEventListener('pageview', async event => {
-    const request = await getRequestBody(event, settings)
+    const request = await getRequestBody('pageview', event, settings)
     sendEvent(request, settings)
   })
 

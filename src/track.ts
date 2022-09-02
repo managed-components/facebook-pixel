@@ -52,16 +52,26 @@ const getFBC = (event: MCEvent) => {
   return fbc
 }
 
-const getBaseRequestBody = (event: MCEvent, settings: ComponentSettings) => {
+const getBaseRequestBody = (
+  eventType: string,
+  event: MCEvent,
+  settings: ComponentSettings
+) => {
   const { client, payload } = event
   const eventId = String(Math.round(Math.random() * 100000000000000000))
   const fbp = event.client.get('fb-pixel') || setNewFBP(event)
 
   const body: { [k: string]: any } = {
-    event_name: payload.ev || event.name || event.type,
+    event_name:
+      (eventType === 'pageview' ? 'PageView' : payload.ev) ||
+      event.name ||
+      event.type,
     event_id: eventId,
     action_source: 'website',
-    event_time: client.timestamp && Math.floor(client.timestamp / 1000),
+    event_time:
+      client.timestamp && client.timestamp > 9999999999
+        ? Math.floor(client.timestamp / 1e3)
+        : client.timestamp,
     event_source_url: client.url.href,
     data_processing_options: [],
     user_data: {
@@ -79,12 +89,18 @@ const getBaseRequestBody = (event: MCEvent, settings: ComponentSettings) => {
 }
 
 export const getRequestBody = async (
+  eventType: string,
   event: MCEvent,
   settings: ComponentSettings
 ) => {
-  const { payload } = event
+  let payload
+  if (eventType === 'ecommerce') {
+    payload = event.payload.ecommerce
+  } else {
+    payload = event.payload
+  }
   const fbc = getFBC(event)
-  const body = getBaseRequestBody(event, settings)
+  const body = getBaseRequestBody(eventType, event, settings)
 
   // appending hashed user data
   const encoder = new TextEncoder()
