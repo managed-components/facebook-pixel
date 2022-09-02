@@ -38,25 +38,26 @@ const getValue = (payload: any) =>
 
 const mapEcommerceData = (event: MCEvent) => {
   const { payload } = event
+  const data = payload.ecommerce
 
   const custom_data: { [k: string]: any } = {}
 
-  custom_data.currency = payload.currency
+  custom_data.currency = data.currency
   custom_data.content_type = 'product'
-  custom_data.content_ids = getContentIds(payload)
-  custom_data.content_name = getContentName(payload)
-  custom_data.content_category = payload.category
-  custom_data.value = getValue(payload)
-  payload.order_id && (custom_data.order_id = payload.order_id)
+  custom_data.content_ids = getContentIds(data)
+  custom_data.content_name = getContentName(data)
+  custom_data.content_category = data.category
+  custom_data.value = getValue(data)
+  data.order_id && (custom_data.order_id = data.order_id)
 
   if (
     event.name &&
     ['Checkout Started', 'Order Completed'].includes(event.name)
   ) {
-    custom_data.num_items = (payload.products?.length || 1).toString()
+    custom_data.num_items = (data.products?.length || 1).toString()
   }
   if (event.name === 'Products Searched') {
-    custom_data.search_string = payload.query
+    custom_data.search_string = data.query
   }
 
   return custom_data
@@ -67,8 +68,8 @@ export const getEcommerceRequestBody = async (
   settings: ComponentSettings
 ) => {
   const ecommerceData = mapEcommerceData(event)
-  delete event.payload.products
-  const request = await getRequestBody(event, settings)
+  delete event.payload.ecommerce.products
+  const request = await getRequestBody('ecommerce', event, settings)
 
   request.event_name = EVENT_NAMES_MAP[event.name || ''] || event.name
   delete request.custom_data.eventName
