@@ -3,12 +3,12 @@ import { getEcommerceRequestBody } from './ecommerce'
 import { getRequestBody } from './track'
 
 const sendEvent = async (payload: any, settings: ComponentSettings) => {
-  const property = settings.property
+  const property = payload.property || settings.property
   const graphEndpoint = `https://graph.facebook.com/v14.0/${property}/events`
 
   const requestBody = {
     data: [payload],
-    access_token: settings.accessToken,
+    access_token: payload.accessToken || settings.accessToken,
     ...(settings.testKey && {
       test_event_code: settings.testKey,
     }),
