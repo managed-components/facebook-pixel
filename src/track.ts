@@ -1,5 +1,4 @@
 import { ComponentSettings, MCEvent } from '@managed-components/types'
-import * as crypto from 'crypto'
 import { flattenKeys } from './utils'
 
 const USER_DATA: Record<string, { hashed?: boolean }> = {
