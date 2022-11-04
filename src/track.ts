@@ -109,9 +109,8 @@ export const getRequestBody = async (
       if (options.hashed) {
         const data = encoder.encode(value.trim().toLowerCase())
         const digest = await crypto.subtle.digest('SHA-256', data)
-        const hashArray = Array.from(new Uint8Array(digest));
+        const hashArray = Array.from(new Uint8Array(digest))
         value = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-
       }
       body.user_data[key] = value
       delete payload[key]
