@@ -71,7 +71,7 @@ const getBaseRequestBody = (
       client.timestamp && client.timestamp > 9999999999
         ? Math.floor(client.timestamp / 1e3)
         : client.timestamp,
-    event_source_url: client.url.href,
+    event_source_url: payload.dl || client.url.href,
     data_processing_options: [],
     user_data: {
       fbp,
