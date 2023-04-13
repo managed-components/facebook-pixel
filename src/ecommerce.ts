@@ -40,10 +40,6 @@ const getContents = (payload: any) => {
         id: payload.sku || payload.product_id,
         quantity: payload.quantity,
         item_price: payload.price,
-        delivery_category:
-          payload.delivery_category ||
-          payload.shipping_tier ||
-          payload.shipping,
       },
     ]) ||
       []),
@@ -54,8 +50,6 @@ const getContents = (payload: any) => {
             id: p.sku || p.product_id,
             quantity: p.quantity,
             item_price: p.price,
-            delivery_category:
-              p.delivery_category || p.shipping_tier || p.shipping,
           },
         ]) ||
         []
