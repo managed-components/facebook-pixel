@@ -57,7 +57,15 @@ const getBaseRequestBody = (
   settings: ComponentSettings
 ) => {
   const { client, payload } = event
-  const eventId = String(Math.round(Math.random() * 100000000000000000))
+
+  // Use the incoming event_id or generate a new one
+  const eventId =
+    payload.event_id ||
+    payload.ecommerce?.event_id ||
+    String(Math.round(Math.random() * 100000000000000000))
+  delete payload.event_id
+  delete payload.ecommerce?.event_id
+
   const fbp = event.client.get('fb-pixel') || setNewFBP(event)
 
   const body: { [k: string]: any } = {
