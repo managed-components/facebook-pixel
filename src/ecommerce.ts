@@ -35,15 +35,13 @@ const getContentIds = (payload: any) => {
 
 const getContents = (payload: any) => {
   return [
-    ...(((payload.sku || payload.product_id) && [
-      {
-        id: payload.sku || payload.product_id,
-        quantity: payload.quantity,
-        item_price: payload.price,
-      },
-    ]) ||
+    ...(((payload.sku || payload.product_id) && {
+      id: payload.sku || payload.product_id,
+      quantity: payload.quantity,
+      item_price: payload.price,
+    }) ||
       []),
-    ...(payload.products?.map(
+    ...(payload.products?.flatMap(
       (p: any) =>
         ((p.sku || p.product_id) && [
           {
@@ -60,7 +58,7 @@ const getContents = (payload: any) => {
 const getValue = (payload: any) =>
   payload.value || payload.price || payload.total || payload.revenue
 
-const mapEcommerceData = (event: MCEvent) => {
+export const mapEcommerceData = (event: MCEvent) => {
   const { payload } = event
   const data = payload.ecommerce
 
