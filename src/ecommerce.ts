@@ -35,11 +35,13 @@ const getContentIds = (payload: any) => {
 
 const getContents = (payload: any) => {
   return [
-    ...(((payload.sku || payload.product_id) && {
-      id: payload.sku || payload.product_id,
-      quantity: payload.quantity,
-      item_price: payload.price,
-    }) ||
+    ...(((payload.sku || payload.product_id) && [
+      {
+        id: payload.sku || payload.product_id,
+        quantity: payload.quantity,
+        item_price: payload.price,
+      },
+    ]) ||
       []),
     ...(payload.products?.flatMap(
       (p: any) =>
