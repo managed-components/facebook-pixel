@@ -141,4 +141,53 @@ describe('mapEcommerceData', () => {
     }
     expect(payload).toEqual(expectedPayload)
   })
+
+  it('returns valid request body object for single products not in an array', async () => {
+    mockEvent.payload = {
+      ecommerce: {
+        timestamp: 1681938876,
+        'zaraz-test-mc_zara__last_page_title': 'test ecommerce',
+        snowplow_SNOW__pvid: 'd778886c-5bcd-42db-8374-90d59fd388eb',
+        snowplow_SNOW__email: 'null',
+        checkout_id: '616727740',
+        order_id: '817286897056801',
+        affiliation: 'affiliate.com',
+        total: 20,
+        revenue: 15,
+        shipping: 3,
+        tax: 2,
+        discount: 5,
+        coupon: 'winter-sale',
+        brand: 'Victoria Cruz',
+        category: 'Bracelets',
+        currency: 'EUR',
+        measurement_id: 'G-87VT32FE6B',
+        name: 'MOTHER sterling silver adjustable bracelet with pearls in mom plate and pearl shape',
+        price: 67,
+        product_id: '7179',
+        sku: 'A4530-00 HP',
+      },
+      name: 'Order Completed',
+    }
+    const payload = await mapEcommerceData(mockEvent)
+    const expectedPayload = {
+      currency: 'EUR',
+      content_category: 'Bracelets',
+      content_type: 'product',
+      content_ids: ['A4530-00 HP'],
+      content_name:
+        'MOTHER sterling silver adjustable bracelet with pearls in mom plate and pearl shape',
+      contents: [
+        {
+          id: 'A4530-00 HP',
+          quantity: undefined,
+          item_price: 67,
+        },
+      ],
+      value: 67,
+      order_id: '817286897056801',
+      num_items: '1',
+    }
+    expect(payload).toEqual(expectedPayload)
+  })
 })
