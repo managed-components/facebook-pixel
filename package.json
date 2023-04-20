@@ -1,6 +1,6 @@
 {
   "name": "@managed-components/facebook-pixel",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
