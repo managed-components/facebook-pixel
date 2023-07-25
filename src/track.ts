@@ -81,12 +81,16 @@ const getBaseRequestBody = (
         : client.timestamp,
     event_source_url: payload.dl || client.url.href,
     ...(settings.dataProcessingOptions && {
-      data_processing_options: ['LDU'],
+      data_processing_options: [settings.dataProcessingOptions],
       ...(settings.dataProcessingOptionsCountry && {
-        data_processing_options_country: settings.dataProcessingOptionsCountry,
+        data_processing_options_country: parseInt(
+          settings.dataProcessingOptionsCountry
+        ),
       }),
       ...(settings.dataProcessingOptionsState && {
-        data_processing_options_state: settings.dataProcessingOptionsState,
+        data_processing_options_state: parseInt(
+          settings.dataProcessingOptionsState
+        ),
       }),
     }),
     user_data: {
