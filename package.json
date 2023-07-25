@@ -9,7 +9,7 @@
     "bundle": "node esbuild.js",
     "build": "npm run lint && npm run typecheck && npm run bundle",
     "typecheck": "tsc --project tsconfig.build.json --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:dev": "vitest",
     "release": "npm run build && npm version patch && npm publish"
   },
