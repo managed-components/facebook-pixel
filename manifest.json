@@ -6,5 +6,10 @@
   "categories": ["Advertising"],
   "provides": ["events"],
   "allowCustomFields": true,
-  "permissions": {}
+  "permissions": {
+    "access_client_kv": {
+      "description": "",
+      "required": true
+    }
+  }
 }
