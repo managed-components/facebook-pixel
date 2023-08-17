@@ -80,7 +80,19 @@ const getBaseRequestBody = (
         ? Math.floor(client.timestamp / 1e3)
         : client.timestamp,
     event_source_url: payload.dl || client.url.href,
-    data_processing_options: [],
+    ...(settings.dataProcessingOptions && {
+      data_processing_options: [settings.dataProcessingOptions],
+      ...(settings.dataProcessingOptionsCountry && {
+        data_processing_options_country: parseInt(
+          settings.dataProcessingOptionsCountry
+        ),
+      }),
+      ...(settings.dataProcessingOptionsState && {
+        data_processing_options_state: parseInt(
+          settings.dataProcessingOptionsState
+        ),
+      }),
+    }),
     user_data: {
       fbp,
       ...(!settings.hideClientIP && {
