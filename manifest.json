@@ -8,7 +8,7 @@
   "allowCustomFields": true,
   "permissions": {
     "access_client_kv": {
-      "description": "",
+      "description": "Stores UUIDs as cookies.",
       "required": true
     }
   }
