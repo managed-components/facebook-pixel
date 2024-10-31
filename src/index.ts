@@ -8,7 +8,7 @@ const sendEvent = async (
   settings: ComponentSettings
 ) => {
   const property = payload.custom_data.property || settings.property
-  const graphEndpoint = `https://graph.facebook.com/v14.0/${property}/events`
+  const graphEndpoint = `https://graph.facebook.com/v21.0/${property}/events`
 
   const requestBody = {
     data: [payload],
