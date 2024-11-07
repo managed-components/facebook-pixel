@@ -127,7 +127,7 @@ export const getRequestBody = async (
     let value = payload[key]
     if (value) {
       if (options.hashed) {
-        const data = encoder.encode(value.trim().toLowerCase())
+        const data = encoder.encode(String(value).trim().toLowerCase())
         const digest = await crypto.subtle.digest('SHA-256', data)
         const hashArray = Array.from(new Uint8Array(digest))
         value = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')

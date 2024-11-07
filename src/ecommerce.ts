@@ -16,7 +16,7 @@ const EVENT_NAMES_MAP: { [k: string]: string } = {
 
 const getContentName = (payload: any) => {
   return [
-    ...(payload.products?.map((p: any) => p.name) || []),
+    ...(payload.products?.map?.((p: any) => p.name) || []),
     ...((payload.name && [payload.name]) || []),
   ]
     .filter(n => n)
@@ -25,7 +25,7 @@ const getContentName = (payload: any) => {
 
 const getContentIds = (payload: any) => {
   return [
-    ...(payload.products?.map((p: any) => p.sku || p.product_id) || []),
+    ...(payload.products?.map?.((p: any) => p.sku || p.product_id) || []),
     ...(((payload.sku || payload.product_id) && [
       payload.sku || payload.product_id,
     ]) ||
@@ -43,7 +43,7 @@ const getContents = (payload: any) => {
       },
     ]) ||
       []),
-    ...(payload.products?.flatMap(
+    ...(payload.products?.flatMap?.(
       (p: any) =>
         ((p.sku || p.product_id) && [
           {
